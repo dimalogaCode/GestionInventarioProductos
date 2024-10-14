@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inventario de Productos</title>
+    <!-- Enlazar el archivo de estilos -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    
+</head>
+<body>
+
+    <h1>Inventario de Productos</h1>
+
+    <!-- Tabla para mostrar productos -->
+    <table>
+        <tr>
+            <th>ID</th>
+            <th>Nombre</th>
+            <th>Descripción</th>
+            <th>Cantidad</th>
+            <th>Precio</th>
+            <th>Acciones</th>
+        </tr>
+        {% for producto in productos %}
+        <tr>
+            <td>{{ producto[0] }}</td>
+            <td>{{ producto[1] }}</td>
+            <td>{{ producto[2] }}</td>
+            <td>{{ producto[3] }}</td>
+            <td>{{ producto[4] }}</td>
+            <td class="actions">
+                <a href="/eliminar_producto/{{ producto[0] }}">Eliminar</a>
+                <a href="/actualizar_producto/{{ producto[0] }}">Editar</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+
+    <!-- Formulario para agregar un nuevo producto -->
+    <form action="/agregar_producto" method="POST">
+        <input type="text" name="nombre" placeholder="Nombre del producto" required>
+        <textarea name="descripcion" placeholder="Descripción del producto" required></textarea>
+        <input type="number" name="cantidad" placeholder="Cantidad en stock" required>
+        <input type="text" name="precio" placeholder="Precio del producto" required>
+        <button type="submit">Agregar Producto</button>
+    </form>
+
+</body>
+</html>
